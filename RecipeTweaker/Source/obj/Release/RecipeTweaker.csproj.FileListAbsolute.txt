@@ -1,0 +1,9 @@
+D:\ramo gay\RecipeTweaker\Source\obj\Release\RecipeTweaker.csproj.AssemblyReference.cache
+D:\ramo gay\RecipeTweaker\Source\obj\Release\RecipeTweaker.GeneratedMSBuildEditorConfig.editorconfig
+D:\ramo gay\RecipeTweaker\Source\obj\Release\RecipeTweaker.AssemblyInfoInputs.cache
+D:\ramo gay\RecipeTweaker\Source\obj\Release\RecipeTweaker.AssemblyInfo.cs
+D:\ramo gay\RecipeTweaker\Source\obj\Release\RecipeTweaker.csproj.CoreCompileInputs.cache
+D:\ramo gay\RecipeTweaker\Assemblies\RecipeTweaker.dll
+D:\ramo gay\RecipeTweaker\Assemblies\RecipeTweaker.pdb
+D:\ramo gay\RecipeTweaker\Source\obj\Release\RecipeTweaker.dll
+D:\ramo gay\RecipeTweaker\Source\obj\Release\RecipeTweaker.pdb
