@@ -1,1 +1,19 @@
-<ModMetaData><name>Recipe Tweaker</name><author>You</author><packageId>you.recipetweaker</packageId><supportedVersions><li>1.6</li></supportedVersions><description>In-game recipe editor</description></ModMetaData>
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Recipe &amp; Crafting Tweaker</name>
+  <author>SadSeal5</author>
+  <packageId>sadseal.recipetweaker</packageId>
+  <supportedVersions>
+    <li>1.5</li>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>In-game real-time recipe and crafting editor for RimWorld:
+
+Features:
+- Live Recipe Editor: Search and edit any vanilla or modded recipe on the fly.
+- Work Amount / Crafting Speed Fix: Synchronizes recipe work amount with item WorkToMake stat.
+- Custom Ingredient Picker: Swap, add, or adjust material requirements from any installed mod.
+- Disable Unwanted Recipes: Toggle any recipe on or off with a single checkbox.
+- 1-Click XML Exporter: Export all custom changes into a clean RimWorld PatchOperation XML file for sharing.
+- Modern Mod Settings Menu with full English &amp; Turkish translations.</description>
+</ModMetaData>

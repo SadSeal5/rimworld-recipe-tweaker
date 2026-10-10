@@ -1,17 +1,21 @@
-﻿using System.IO;
+using System.IO;
 using System.Text;
 using Verse;
 using RimWorld;
 
-namespace RecipeTweaker {
-    public static class XmlPatchExporter {
+namespace RecipeTweaker
+{
+    public static class XmlPatchExporter
+    {
         private static string Dir => Path.Combine(GenFilePaths.ConfigFolderPath, "RecipeTweaker");
         private static string FilePath => Path.Combine(Dir, "GeneratedPatches.xml");
 
-        public static void ExportAll() {
+        public static void ExportAll()
+        {
             var tweaks = RecipeTweakerMod.Settings?.tweaks;
-            if (tweaks == null || tweaks.Count == 0) {
-                Messages.Message("[RecipeTweaker] Disari aktarilacak degisiklik yok.", MessageTypeDefOf.RejectInput, false);
+            if (tweaks == null || tweaks.Count == 0)
+            {
+                Messages.Message("[MegaMod] Disari aktarilacak tarif degisikligi yok.", MessageTypeDefOf.RejectInput, false);
                 return;
             }
 
@@ -19,7 +23,8 @@ namespace RecipeTweaker {
             var sb = new StringBuilder(1024);
             sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Patch>");
 
-            for (int i = 0; i < tweaks.Count; i++) {
+            for (int i = 0; i < tweaks.Count; i++)
+            {
                 var tw = tweaks[i];
                 var r = DefDatabase<RecipeDef>.GetNamed(tw.recipeDefName, false);
                 if (r == null) continue;
@@ -30,10 +35,12 @@ namespace RecipeTweaker {
                 if (tw.newWorkAmount >= 0f)
                     Repl(sb, xpath + "/workAmount", "<workAmount>" + tw.newWorkAmount.ToString("F0") + "</workAmount>");
 
-                if (tw.hasCustomIngredients && tw.customIngredients != null) {
+                if (tw.hasCustomIngredients && tweakCustom(tw))
+                {
                     var ingXml = new StringBuilder();
                     ingXml.AppendLine("<ingredients>");
-                    for (int j = 0; j < tw.customIngredients.Count; j++) {
+                    for (int j = 0; j < tw.customIngredients.Count; j++)
+                    {
                         var item = tw.customIngredients[j];
                         ingXml.AppendLine("      <li>");
                         ingXml.AppendLine("        <filter><thingDefs><li>" + item.thingDefName + "</li></thingDefs></filter>");
@@ -46,10 +53,16 @@ namespace RecipeTweaker {
             }
             sb.AppendLine("</Patch>");
             File.WriteAllText(FilePath, sb.ToString(), Encoding.UTF8);
-            Messages.Message("[RecipeTweaker] XML aktarildi: " + FilePath, MessageTypeDefOf.PositiveEvent, false);
+            Messages.Message("[MegaMod] XML yamasi aktarildi: " + FilePath, MessageTypeDefOf.PositiveEvent, false);
         }
 
-        private static void Repl(StringBuilder sb, string xpath, string val) {
+        private static bool tweakCustom(RecipeTweak tw)
+        {
+            return tw.customIngredients != null && tw.customIngredients.Count > 0;
+        }
+
+        private static void Repl(StringBuilder sb, string xpath, string val)
+        {
             sb.AppendLine("  <Operation Class=\"PatchOperationReplace\">\n    <xpath>" + xpath + "</xpath>\n    <value>" + val + "</value>\n  </Operation>");
         }
     }

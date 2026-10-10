@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RecipeTweaker_ModTitle>Recipe &amp; Crafting Tweaker</RecipeTweaker_ModTitle>
+  <RecipeTweaker_SettingsTitle>Recipe &amp; Crafting Tweaker Settings</RecipeTweaker_SettingsTitle>
+  <RecipeTweaker_SettingsDesc>Real-time in-game recipe editor for vanilla and all modded RecipeDefs. Customize ingredient lists, work amounts (crafting time), labels, or disable recipes completely.</RecipeTweaker_SettingsDesc>
+  <RecipeTweaker_ActiveCount>Active Custom Tweaks: {0}</RecipeTweaker_ActiveCount>
+  <RecipeTweaker_OpenEditor>Open Recipe Editor ({0} tweaks)</RecipeTweaker_OpenEditor>
+  <RecipeTweaker_ExportXml>Export to XML Patch File</RecipeTweaker_ExportXml>
+  <RecipeTweaker_ResetAll>Reset All Tweaks to Vanilla</RecipeTweaker_ResetAll>
+  <RecipeTweaker_ResetAllConfirm>Are you sure you want to revert all custom recipe tweaks to vanilla defaults? This will erase all your saved recipe modifications.</RecipeTweaker_ResetAllConfirm>
+  <RecipeTweaker_ResetAllSuccess>All recipes have been reset to vanilla defaults.</RecipeTweaker_ResetAllSuccess>
+  <RecipeTweaker_HelpText>Tip: Changes made in the Recipe Editor take effect immediately and are saved automatically across game restarts. Work amount edits synchronize both recipe speed and item WorkToMake stat.</RecipeTweaker_HelpText>
+</LanguageData>

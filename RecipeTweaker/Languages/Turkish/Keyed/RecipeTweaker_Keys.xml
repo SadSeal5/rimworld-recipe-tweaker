@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RecipeTweaker_ModTitle>Tarif ve Üretim Düzenleyici</RecipeTweaker_ModTitle>
+  <RecipeTweaker_SettingsTitle>Tarif ve Üretim Düzenleyici Ayarları</RecipeTweaker_SettingsTitle>
+  <RecipeTweaker_SettingsDesc>Vanilla ve yüklü tüm modlardaki eşya tariflerini (RecipeDef) oyun içinden anlık olarak düzenleyin. Malzeme gereksinimlerini, üretim sürelerini (iş miktarı) ve isimleri değiştirebilir veya tarifleri devre dışı bırakabilirsiniz.</RecipeTweaker_SettingsDesc>
+  <RecipeTweaker_ActiveCount>Aktif Özel Düzenleme Sayısı: {0}</RecipeTweaker_ActiveCount>
+  <RecipeTweaker_OpenEditor>Tarif Editörünü Aç ({0} aktif)</RecipeTweaker_OpenEditor>
+  <RecipeTweaker_ExportXml>XML Yaması Olarak Dışa Aktar</RecipeTweaker_ExportXml>
+  <RecipeTweaker_ResetAll>Tüm Değişiklikleri Sıfırla</RecipeTweaker_ResetAll>
+  <RecipeTweaker_ResetAllConfirm>Tüm özel tarif düzenlemelerini orijinal vanilla haline döndürmek istediğinize emin misiniz? Kayıtlı tüm tarif değişiklikleriniz silinecektir.</RecipeTweaker_ResetAllConfirm>
+  <RecipeTweaker_ResetAllSuccess>Tüm tarifler orijinal vanilla hallerine döndürüldü.</RecipeTweaker_ResetAllSuccess>
+  <RecipeTweaker_HelpText>İpucu: Tarif Editöründe yapılan değişiklikler anında oyuna uygulanır ve oyun yeniden başlatıldığında korunur. İş miktarı düzenlemeleri hem tarifi hem de eşyanın WorkToMake statını senkronize eder.</RecipeTweaker_HelpText>
+</LanguageData>

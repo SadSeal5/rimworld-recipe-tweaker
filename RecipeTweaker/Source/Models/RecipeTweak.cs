@@ -1,20 +1,24 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Verse;
 
-namespace RecipeTweaker {
-    public class SavedIngredient : IExposable {
+namespace RecipeTweaker
+{
+    public class SavedIngredient : IExposable
+    {
         public string thingDefName;
         public string filterLabel;
         public int count;
 
-        public void ExposeData() {
+        public void ExposeData()
+        {
             Scribe_Values.Look(ref thingDefName, "thingDefName");
             Scribe_Values.Look(ref filterLabel, "filterLabel");
             Scribe_Values.Look(ref count, "count", 1);
         }
     }
 
-    public class RecipeTweak : IExposable {
+    public class RecipeTweak : IExposable
+    {
         public string recipeDefName;
         public string newLabel;
         public float newWorkAmount = -1f;
@@ -22,7 +26,8 @@ namespace RecipeTweaker {
         public bool hasCustomIngredients;
         public List<SavedIngredient> customIngredients = new List<SavedIngredient>();
 
-        public void ExposeData() {
+        public void ExposeData()
+        {
             Scribe_Values.Look(ref recipeDefName, "recipeDefName");
             Scribe_Values.Look(ref newLabel, "newLabel");
             Scribe_Values.Look(ref newWorkAmount, "newWorkAmount", -1f);
