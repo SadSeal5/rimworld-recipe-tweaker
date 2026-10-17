@@ -2,7 +2,7 @@
 
 ![Recipe Tweaker Banner](RecipeTweaker/About/Preview.png)
 
-[![RimWorld 1.5 & 1.6](https://img.shields.io/badge/RimWorld-1.5%20%7C%201.6-brightgreen.svg)](#)
+[![RimWorld 1.5, 1.6 & 1.7 (Beta)](https://img.shields.io/badge/RimWorld-1.5%20%7C%201.6%20%7C%201.7%20(Beta)-brightgreen.svg)](#)
 [![Language](https://img.shields.io/badge/Language-C%23-blue.svg)](#)
 [![License](https://img.shields.io/badge/License-MIT-orange.svg)](#)
 
@@ -29,6 +29,9 @@
 3. Search for any recipe by name in the search bar.
 4. Customize work amount, change labels, add/remove ingredients using the item picker, or disable the recipe.
 5. Click **"Save Changes"** — the tweak is applied instantly in-game!
+
+## 📋 Requirements
+- **RimWorld:** `1.5`, `1.6` or `1.7` (Beta)
 
 ---
 
