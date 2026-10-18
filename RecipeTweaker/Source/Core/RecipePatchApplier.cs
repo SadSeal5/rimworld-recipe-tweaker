@@ -21,6 +21,7 @@ namespace RecipeTweaker
         static RecipePatchApplier()
         {
             ApplyAll();
+            CustomRecipeManager.InitializeAll();
         }
 
         public static void EnsureVanillaSaved(RecipeDef r)

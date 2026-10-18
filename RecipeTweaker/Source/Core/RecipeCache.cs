@@ -12,6 +12,14 @@ namespace RecipeTweaker
 
         public static bool IsBuilt => _grouped != null;
 
+        public static void Rebuild()
+        {
+            _grouped = null;
+            _filtered = null;
+            _lastSearch = null;
+            EnsureBuilt();
+        }
+
         public static void EnsureBuilt()
         {
             if (_grouped != null) return;
@@ -20,7 +28,15 @@ namespace RecipeTweaker
             for (int i = 0; i < all.Count; i++)
             {
                 var r = all[i];
-                string m = r.modContentPack?.Name ?? "Unknown";
+                string m;
+                if (CustomRecipeManager.IsCustomRecipe(r.defName))
+                {
+                    m = "Özel Tarifler";
+                }
+                else
+                {
+                    m = r.modContentPack?.Name ?? "Unknown";
+                }
                 if (!_grouped.TryGetValue(m, out var lst))
                 {
                     lst = new List<RecipeDef>(32);

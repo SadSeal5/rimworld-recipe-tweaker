@@ -6,13 +6,18 @@ namespace RecipeTweaker
     public class RecipeTweakerSettings : ModSettings
     {
         public List<RecipeTweak> tweaks = new List<RecipeTweak>();
+        public List<CustomRecipeData> customRecipes = new List<CustomRecipeData>();
 
         public override void ExposeData()
         {
             Scribe_Collections.Look(ref tweaks, "tweaks", LookMode.Deep);
+            Scribe_Collections.Look(ref customRecipes, "customRecipes", LookMode.Deep);
             base.ExposeData();
-            if (Scribe.mode == LoadSaveMode.PostLoadInit && tweaks == null)
-                tweaks = new List<RecipeTweak>();
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                if (tweaks == null) tweaks = new List<RecipeTweak>();
+                if (customRecipes == null) customRecipes = new List<CustomRecipeData>();
+            }
         }
 
         public RecipeTweak GetOrCreate(string defName)

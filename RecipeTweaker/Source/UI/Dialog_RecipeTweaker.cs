@@ -41,8 +41,17 @@ namespace RecipeTweaker
         public override void DoWindowContents(Rect inRect)
         {
             if (_searchText != _prevSearch) { RefreshFilter(); _prevSearch = _searchText; }
+
+            if (Widgets.ButtonText(new Rect(inRect.x, inRect.y, 160f, 30f), "+ Yeni Tarif Ekle"))
+            {
+                Find.WindowStack.Add(new Dialog_CreateCustomRecipe(() =>
+                {
+                    RefreshFilter();
+                }));
+            }
+
             Text.Font = GameFont.Medium;
-            Widgets.Label(new Rect(inRect.x, inRect.y, 450f, 32f), "Recipe & Crafting Tweaker");
+            Widgets.Label(new Rect(inRect.x + 175f, inRect.y + 2f, 450f, 30f), "Recipe & Crafting Tweaker");
             Text.Font = GameFont.Small;
 
             float cy = inRect.y + 36f, ch = inRect.height - 36f;
@@ -87,14 +96,16 @@ namespace RecipeTweaker
                             else if (i % 2 == 1) Widgets.DrawBoxSolid(rowR, ColRowAlt);
                             if (Mouse.IsOver(rowR)) Widgets.DrawHighlight(rowR);
 
+                            bool isCust = CustomRecipeManager.IsCustomRecipe(r.defName);
                             bool hasTweak = HasTweak(r.defName);
                             var iconR = new Rect(4f, y + 5f, 16f, 16f);
                             if (r.UIIcon != null) GUI.DrawTexture(iconR, r.UIIcon);
 
                             var txtR = new Rect(24f, y + 3f, view.width - 28f, ROW_H - 3f);
-                            if (hasTweak) GUI.color = Color.yellow;
+                            if (isCust) GUI.color = Color.cyan;
+                            else if (hasTweak) GUI.color = Color.yellow;
                             Widgets.Label(txtR, r.LabelCap);
-                            if (hasTweak) GUI.color = Color.white;
+                            if (isCust || hasTweak) GUI.color = Color.white;
 
                             if (Widgets.ButtonInvisible(rowR)) SelectRecipe(r);
                         }
@@ -125,8 +136,16 @@ namespace RecipeTweaker
             }
 
             float y = rect.y, w = rect.width;
+            bool isCustom = CustomRecipeManager.IsCustomRecipe(_selected.defName);
+
             Text.Font = GameFont.Medium;
-            Widgets.Label(new Rect(rect.x, y, w, 28f), _selected.LabelCap);
+            Widgets.Label(new Rect(rect.x, y, w - (isCustom ? 120f : 0f), 28f), _selected.LabelCap);
+            if (isCustom)
+            {
+                GUI.color = Color.cyan;
+                Widgets.Label(new Rect(rect.x + w - 110f, y + 2f, 110f, 26f), "[Özel Tarif]");
+                GUI.color = Color.white;
+            }
             Text.Font = GameFont.Small;
             y += 32f;
 
@@ -199,6 +218,30 @@ namespace RecipeTweaker
             float by = rect.y + rect.height - BTN_H;
             if (Widgets.ButtonText(new Rect(rect.x, by, 120f, BTN_H), "Kaydet")) SaveChanges();
             if (Widgets.ButtonText(new Rect(rect.x + 130f, by, 140f, BTN_H), "Orijinale Sifirla")) ResetToFactory();
+
+            if (isCustom)
+            {
+                GUI.color = new Color(1f, 0.4f, 0.4f);
+                if (Widgets.ButtonText(new Rect(rect.x + rect.width - 120f, by, 120f, BTN_H), "Tarifi Sil"))
+                {
+                    var customData = CustomRecipeManager.GetCustomRecipe(_selected.defName);
+                    if (customData != null)
+                    {
+                        Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+                            "'" + _selected.LabelCap + "' ozel tarifini tamamen silmek istediginize emin misiniz?",
+                            () =>
+                            {
+                                CustomRecipeManager.RemoveCustomRecipe(customData);
+                                _selected = null;
+                                RefreshFilter();
+                                Messages.Message("Ozel tarif silindi.", MessageTypeDefOf.PositiveEvent, false);
+                            },
+                            destructive: true
+                        ));
+                    }
+                }
+                GUI.color = Color.white;
+            }
         }
 
         private void RefreshFilter()
@@ -281,6 +324,24 @@ namespace RecipeTweaker
                 });
             }
 
+            var customData = CustomRecipeManager.GetCustomRecipe(_selected.defName);
+            if (customData != null)
+            {
+                if (!string.IsNullOrEmpty(_editLabel)) customData.label = _editLabel;
+                if (float.TryParse(_editWork, out var cwp)) customData.workAmount = cwp;
+                customData.ingredients.Clear();
+                for (int i = 0; i < _workingIngredients.Count; i++)
+                {
+                    customData.ingredients.Add(new SavedIngredient
+                    {
+                        thingDefName = _workingIngredients[i].ThingDefName,
+                        filterLabel = _workingIngredients[i].Label,
+                        count = _workingIngredients[i].Count
+                    });
+                }
+                CustomRecipeManager.BuildAndRegister(customData, true);
+            }
+
             RecipePatchApplier.ApplyTweak(_selected, tw);
             RecipeTweakerMod.Settings.PruneVanilla();
             RecipeTweakerMod.Settings.Write();
@@ -290,6 +351,11 @@ namespace RecipeTweaker
         private void ResetToFactory()
         {
             if (_selected == null) return;
+            if (CustomRecipeManager.IsCustomRecipe(_selected.defName))
+            {
+                Messages.Message("Ozel tariflerin orijinal hali yoktur. Silmek icin 'Tarifi Sil' butonunu kullanin.", MessageTypeDefOf.RejectInput, false);
+                return;
+            }
             RecipePatchApplier.ResetToVanilla(_selected);
             RecipeTweakerMod.Settings.tweaks.RemoveAll(t => t.recipeDefName == _selected.defName);
             RecipeTweakerMod.Settings.Write();
